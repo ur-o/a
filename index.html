@@ -198,6 +198,35 @@ h2{
         font-size:23px;
     }
 }
+
+/* Only for the large launcher logo */
+.launcher-logo{
+    width:76px;
+    height:76px;
+    margin:0 auto 14px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.launcher-logo svg{
+    width:58px;
+    height:58px;
+    display:block;
+}
+
+.launcher-youtube{
+    background:#ff0033;
+}
+
+.launcher-instagram{
+    background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+}
+
+.launcher-facebook{
+    background:#1877f2;
+}
 </style>
 
 <script>
@@ -292,16 +321,25 @@ document.body.innerHTML=`
 
 else if(mobile){
 
-let icon="";
 let name="";
 let buttonClass="";
 let logo="";
+let launcherLogo="";
 
 if(platform==="youtube"){
 
     name="YouTube";
-    icon="▶";
     buttonClass="youtube-btn";
+
+    launcherLogo=`
+    <div class="launcher-logo launcher-youtube">
+        <svg viewBox="0 0 24 24" aria-label="YouTube">
+            <path fill="#fff"
+            d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"/>
+            <path fill="#ff0033"
+            d="m9.6 15.4 6.2-3.4-6.2-3.4v6.8Z"/>
+        </svg>
+    </div>`;
 
     logo=`
     <svg class="brand-logo" viewBox="0 0 24 24">
@@ -315,8 +353,23 @@ if(platform==="youtube"){
 else if(platform==="instagram"){
 
     name="Instagram";
-    icon="◎";
     buttonClass="instagram-btn";
+
+    launcherLogo=`
+    <div class="launcher-logo launcher-instagram">
+        <svg viewBox="0 0 24 24" aria-label="Instagram">
+            <rect x="3" y="3" width="18" height="18" rx="5"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2.2"/>
+            <circle cx="12" cy="12" r="4.1"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2.2"/>
+            <circle cx="17.5" cy="6.7" r="1.25"
+            fill="#fff"/>
+        </svg>
+    </div>`;
 
     logo=`
     <svg class="brand-logo" viewBox="0 0 24 24">
@@ -336,8 +389,15 @@ else if(platform==="instagram"){
 else{
 
     name="Facebook";
-    icon="f";
     buttonClass="facebook-btn";
+
+    launcherLogo=`
+    <div class="launcher-logo launcher-facebook">
+        <svg viewBox="0 0 24 24" aria-label="Facebook">
+            <path fill="#fff"
+            d="M13.5 21v-8h2.8l.4-3h-3.2V8.1c0-.9.3-1.5 1.6-1.5h1.8V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.4v3h2.8v8h3.3Z"/>
+        </svg>
+    </div>`;
 
     logo=`
     <svg class="brand-logo" viewBox="0 0 24 24">
@@ -354,21 +414,7 @@ document.body.innerHTML=`
 
     <div class="card">
 
-        <div class="rocket">
-            🚀
-        </div>
-
-        <div class="platform">
-
-            <div class="platform-icon ${platform}">
-                ${icon}
-            </div>
-
-            <span>
-                ${name}
-            </span>
-
-        </div>
+        ${launcherLogo}
 
         <h2 id="title">
             Opening ${name}...
@@ -393,7 +439,7 @@ document.body.innerHTML=`
             class="failure"
             id="failure"
         >
-            Didn't open? Tap the button to try again.
+            Didn't open account? Tap the button to try again.
         </div>
 
     </div>
@@ -421,7 +467,7 @@ setTimeout(()=>{
     const failure=document.getElementById("failure");
 
     if(title){
-        title.textContent="Didn't open?";
+        title.textContent="Didn't open account?";
     }
 
     if(subtitle){
